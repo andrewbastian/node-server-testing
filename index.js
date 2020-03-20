@@ -1,0 +1,39 @@
+const express = require("express")
+const helmet = require("helmet")
+const cors = require("cors")
+const cookieParser = require("cookie-parser")
+const authRouter = require("./auth/auth-router")
+const usersRouter = require("./users/users-router")
+const postRouter = require("./users/post-router")
+
+const server = express()
+const port = process.env.PORT || 5000
+
+server.use(cors())
+server.use(helmet())
+server.use(express.json())
+// middleware that helps us get values from cookies sent by the client
+server.use(cookieParser())
+
+server.use("/auth", authRouter)
+server.use("/users", usersRouter)
+server.use("/post", postRouter)
+server.get("/", (req, res, next) => {
+	res.json({
+		message: "Welcome to our API",
+	})
+})
+
+server.use((err, req, res, next) => {
+	console.log(err)
+	res.status(500).json({
+		message: "Something went wrong",
+	})
+})
+
+if (!module.parent) {
+server.listen(port, () => {
+	console.log(`Running at http://localhost:${port}`)
+	})
+}
+module.export = server
