@@ -4,6 +4,7 @@ const cors = require("cors")
 const cookieParser = require("cookie-parser")
 const authRouter = require("./auth/auth-router")
 const usersRouter = require("./users/users-router")
+const postRouter = require("./users/post-router")
 
 const server = express()
 const port = process.env.PORT || 5000
@@ -16,7 +17,7 @@ server.use(cookieParser())
 
 server.use("/auth", authRouter)
 server.use("/users", usersRouter)
-
+server.use("/post", postRouter)
 server.get("/", (req, res, next) => {
 	res.json({
 		message: "Welcome to our API",

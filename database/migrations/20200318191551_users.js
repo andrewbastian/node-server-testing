@@ -5,7 +5,7 @@ exports.up = async function(knex) {
 		table.text("password").notNull()
 	})
 
-	    await knex.schema.createTable('post', tbl => {
+	    await knex.schema.createTable('posts', tbl => {
       tbl.increments();
       tbl.integer('post_id')
         .unsigned()
@@ -26,5 +26,5 @@ exports.up = async function(knex) {
 
 exports.down = async function(knex) {
 	await knex.schema.dropTableIfExists("users")
-	 await knex.schema.dropTableIfExists("post")
+	 await knex.schema.dropTableIfExists("posts")
 }
